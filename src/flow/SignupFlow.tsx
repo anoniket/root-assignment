@@ -5,6 +5,7 @@ import { MobileStep } from "../steps/MobileStep";
 import { NameStep } from "../steps/NameStep";
 import { OtpStep } from "../steps/OtpStep";
 import { PasswordStep } from "../steps/PasswordStep";
+import { SuccessStep } from "../steps/SuccessStep";
 import type { Step } from "./types";
 import { useSignupState } from "./useSignupState";
 
@@ -28,7 +29,7 @@ const stepTransition = {
 };
 
 export function SignupFlow() {
-  const { step, data, stepIndex, goNext, goBack } = useSignupState();
+  const { step, data, stepIndex, goNext, goBack, reset } = useSignupState();
 
   // Screen 1 (account-type) has NO progress bar — Figma shows it from screen 2 onward.
   const progress = PROGRESS_PX[step] / SLIDER_WIDTH;
@@ -76,40 +77,24 @@ export function SignupFlow() {
             <PasswordStep onContinue={goNext} onBack={goBack} />
           )}
 
+          {/* Frozen view of the password step sits behind the success modal */}
           {step === "success" && (
-            <ComingSoon stepName={step} onBack={goBack} />
+            <PasswordStep
+              defaultPassword={data.password}
+              onContinue={() => {}}
+              onBack={() => {}}
+            />
           )}
         </motion.div>
       </AnimatePresence>
+
+      {/* Success modal overlays the entire viewport when the flow is complete */}
+      <SuccessStep
+        data={data}
+        onDashboard={reset}
+        open={step === "success"}
+      />
     </Layout>
   );
 }
 
-function ComingSoon({
-  stepName,
-  onBack,
-}: {
-  stepName: string;
-  onBack: () => void;
-}) {
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-4 py-16 text-center">
-      <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-ink-400)]">
-        Step
-      </p>
-      <h2 className="text-2xl font-bold text-[var(--color-ink-900)]">
-        {stepName}
-      </h2>
-      <p className="max-w-sm text-sm text-[var(--color-ink-500)]">
-        This screen is coming next. Your progress is saved — refresh the page
-        and you&apos;ll land right back here.
-      </p>
-      <button
-        onClick={onBack}
-        className="mt-2 text-sm font-semibold text-[var(--color-brand-600)] hover:text-[var(--color-brand-700)]"
-      >
-        ← Go back
-      </button>
-    </div>
-  );
-}

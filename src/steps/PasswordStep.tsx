@@ -6,18 +6,22 @@ import { passwordSchema, type PasswordInput as PasswordInputData } from "../flow
 import type { FormData } from "../flow/types";
 
 type Props = {
+  defaultPassword?: string;
   onContinue: (patch: Partial<FormData>) => void;
   onBack: () => void;
 };
 
-export function PasswordStep({ onContinue, onBack }: Props) {
+export function PasswordStep({ defaultPassword, onContinue, onBack }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
   } = useForm<PasswordInputData>({
     resolver: zodResolver(passwordSchema),
-    defaultValues: { password: "", confirm: "" },
+    defaultValues: {
+      password: defaultPassword ?? "",
+      confirm: defaultPassword ?? "",
+    },
     mode: "onChange",
   });
 
