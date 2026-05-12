@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Rubik", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Brand */
+  --color-brand-50: #e6efff;
+  --color-brand-100: #cce0ff;
+  --color-brand-500: #0054fd;
+  --color-brand-600: #0054fd;
+  --color-brand-700: #0046d6;
+  --color-brand-800: #0039b0;
+
+  /* Surfaces */
+  --color-page: #f6f7f9;
+  --color-surface: #ffffff;
+
+  /* Text */
+  --color-ink-900: #0a1830;
+  --color-ink-700: #132c4a;
+  --color-ink-500: #5a6b80;
+  --color-ink-400: #8794a8;
+  --color-ink-300: #bcc7d4;
+
+  /* Lines */
+  --color-line: #d9e0e6;
+  --color-line-strong: #bccbdb;
+
+  /* Status */
+  --color-danger-500: #e02b3c;
+  --color-danger-50: #fef2f2;
+  --color-success-500: #16a34a;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-input: 16px;
+  --radius-pill: 38px;
+
+  /* Shadows */
+  --shadow-card: -16px 4px 35px 0 rgba(0, 0, 0, 0.03);
+  --shadow-option: 0 4px 8px 0 rgba(188, 203, 219, 0.3);
+  --shadow-focus: 0 0 0 4px rgba(0, 84, 253, 0.18);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-page);
+  color: var(--color-ink-700);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
