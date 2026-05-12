@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Layout } from "../components/Layout";
 import { AccountTypeStep } from "../steps/AccountTypeStep";
+import { EmailStep } from "../steps/EmailStep";
 import { MobileStep } from "../steps/MobileStep";
 import { NameStep } from "../steps/NameStep";
 import { OtpStep } from "../steps/OtpStep";
@@ -11,12 +12,15 @@ import { useSignupState } from "./useSignupState";
 
 // Figma slider widths per step (1:556, 1:894, 1:1242, ...). Per-step values
 // rather than a formula because the design isn't strictly linear (264 ≠ 240).
+// Email isn't in Figma — it's an extras screen, slotted between name and
+// password with a midpoint slider value.
 const SLIDER_WIDTH = 554;
 const PROGRESS_PX: Record<Step, number> = {
   "account-type": 0,
   mobile: 80,
   otp: 160,
   name: 264,
+  email: 324,
   password: 384,
   success: 554,
 };
@@ -70,6 +74,14 @@ export function SignupFlow() {
             <NameStep
               defaultFirstName={data.firstName}
               defaultLastName={data.lastName}
+              onContinue={goNext}
+              onBack={goBack}
+            />
+          )}
+
+          {step === "email" && (
+            <EmailStep
+              defaultEmail={data.email}
               onContinue={goNext}
               onBack={goBack}
             />

@@ -1,7 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { Modal } from "../components/ui/Modal";
-import { formatPhone, titleCase } from "../lib/format";
+import { formatPhone, maskEmail, titleCase } from "../lib/format";
 import type { FormData } from "../flow/types";
 
 /** Inline circle-check matching Figma's Font Awesome Light glyph (no extra deps). */
@@ -34,8 +34,10 @@ type Props = {
 export function SuccessStep({ data, onDashboard, open = true }: Props) {
   const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
 
+  // Row order matches Figma node 1:2104 (Account Type, Email, Name, Mobile).
   const rows: Array<{ label: string; value: string }> = [
     { label: "Account Type", value: titleCase(data.accountType ?? "") },
+    { label: "Email", value: maskEmail(data.email) },
     { label: "Name", value: fullName },
     { label: "Mobile Number", value: formatPhone(data.mobile) },
   ].filter((r) => r.value);

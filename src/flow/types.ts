@@ -5,6 +5,7 @@ export type Step =
   | "mobile"
   | "otp"
   | "name"
+  | "email"
   | "password"
   | "success";
 
@@ -13,6 +14,7 @@ export const STEP_ORDER: Step[] = [
   "mobile",
   "otp",
   "name",
+  "email",
   "password",
   "success",
 ];
@@ -24,6 +26,7 @@ export type FormData = {
   otp?: string;
   firstName?: string;
   lastName?: string;
+  email?: string;
   password?: string;
 };
 

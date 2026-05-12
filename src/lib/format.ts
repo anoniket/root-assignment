@@ -15,3 +15,18 @@ export function formatPhone(e164: string | undefined): string {
   const parsed = parsePhoneNumberFromString(e164);
   return parsed?.formatInternational() ?? e164;
 }
+
+/**
+ * Mask the local part of an email for display in the success summary.
+ * "john.doe@example.com" → "jo••••••@example.com" (matches Figma's bullet style).
+ */
+export function maskEmail(email: string | undefined): string {
+  if (!email) return "";
+  const at = email.indexOf("@");
+  if (at <= 0) return email;
+  const local = email.slice(0, at);
+  const domain = email.slice(at);
+  const visible = local.slice(0, Math.min(2, local.length));
+  const dotsCount = Math.max(local.length - visible.length, 4);
+  return `${visible}${"•".repeat(dotsCount)}${domain}`;
+}

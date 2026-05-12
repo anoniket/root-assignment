@@ -1,8 +1,8 @@
 # Figma Signup Flow → React
 
-A six-step account-creation flow rebuilt from a Figma design as a production-grade React + TypeScript app.
+A multi-step account-creation flow rebuilt from a Figma design as a production-grade React + TypeScript app.
 
-> **Status:** All six screens shipped. Pending: production deploy + Lighthouse pass.
+> **Status:** All six Figma screens shipped + one extras screen (Email). Live on Vercel.
 
 ## Live demo
 
@@ -76,6 +76,7 @@ src/
     ├── MobileStep.tsx      # Screen 2 — international phone entry
     ├── OtpStep.tsx         # Screen 3 — 4-digit code, prefilled, resend
     ├── NameStep.tsx        # Screen 4 — First + Last name
+    ├── EmailStep.tsx       # Screen 4.5 — extras: email collection (not in Figma)
     ├── PasswordStep.tsx    # Screen 5 — password + confirm with reveal
     └── SuccessStep.tsx     # Screen 6 — success modal with summary
 ```
@@ -110,6 +111,7 @@ A handful of one-off colors (`#4b59d5` for the success check, `#717680` / `#181d
 | Mobile number | Required; valid E.164 string per `libphonenumber-js` (regex `^\+[1-9]\d{6,14}$`) |
 | OTP | Required; exactly 4 digits |
 | First / Last name | Required; trimmed; 1–40 chars; `^\p{L}[\p{L}\s'-]*$/u` (Unicode letters + space + hyphen + apostrophe — supports José, O'Hara, etc.) |
+| Email | Required; trimmed; lowercased; valid email per Zod's `.email()`; ≤ 254 chars (extras screen — not in Figma) |
 | Password | Required; ≥ 6 chars (per Figma helper text); ≤ 100 chars |
 | Confirm password | Required; must equal password (Zod `.refine()`) |
 
@@ -162,7 +164,8 @@ npm run lint
 - [x] Screen 4 — Name (First + Last with Unicode-aware validation)
 - [x] Screen 5 — Password (≥6 chars + confirm + per-field reveal toggle)
 - [x] Screen 6 — Success modal with captured-data summary
-- [ ] Deploy to Vercel
+- [x] Deploy to Vercel — [root-assignment-gold.vercel.app](https://root-assignment-gold.vercel.app/)
+- [x] **Extras**: Email step + masked email display in success summary
 - [ ] Lighthouse pass (a11y / perf)
 
 ## Decisions worth calling out
@@ -174,4 +177,4 @@ npm run lint
 - **Per-step progress lookup, not a formula.** Figma's slider widths aren't strictly linear (mobile=80, otp=160, name=264, password=384, success=554). A `Record<Step, number>` in `SignupFlow` mirrors the spec exactly.
 - **Generic TextInput grew slots, not variants.** A `hint` and a `trailing` slot let `TextInput` cover plain fields, password fields (via `PasswordInput`), and any future input that needs a right-side icon (search, clear, etc.) without divergent components.
 - **Pixel-perfect on desktop, responsive below.** The Figma design is a single 1440×1024 desktop frame. The desktop layout reproduces every Figma coordinate exactly; below the `xl` breakpoint, content reflows into a stacked single-column shell.
-- **Email row omitted from the success summary.** Figma's modal mock shows an email row, but this flow never collects an email — fabricating a value would contradict the "summary of captured data" framing.
+- **Email step added as an extras screen.** The Figma flow doesn't collect an email but the success modal mock shows one. Rather than invent a value, an extras `EmailStep` was added between Name and Password (Zod email validation, lowercased + trimmed) so the summary row in the modal can be real captured data, masked for display (`jo••••••@example.com`).
