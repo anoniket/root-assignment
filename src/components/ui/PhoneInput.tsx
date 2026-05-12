@@ -42,7 +42,7 @@ function buildPlaceholder(
  * Two-box phone input matching Figma node 1:574:
  *  - Left  93×76: country selector (flag + dial code + chevron, opens dropdown)
  *  - Right 384×76: national phone number, formatted as user types
- *  - 26px gap, 1px solid #729cf0 borders, 12px radius
+ *  - 26px gap, 1px solid var(--color-input-border) borders, 12px radius
  *
  * Uses `react-international-phone`'s usePhoneInput hook so we own the markup
  * but get country data + libphonenumber formatting for free.
@@ -73,7 +73,7 @@ export function PhoneInput({
 
   const borderClass = visibleError
     ? "border-[var(--color-danger-500)]"
-    : "border-[#729cf0]";
+    : "border-[var(--color-input-border)]";
 
   return (
     <div>
@@ -95,7 +95,7 @@ export function PhoneInput({
           className={[
             "h-[76px] w-[384px] rounded-[12px] border border-solid bg-white",
             "px-[24px] text-[16px] leading-[24px] text-[var(--color-ink-700)] outline-none",
-            "placeholder:text-[#8292a1]",
+            "placeholder:text-[var(--color-ink-muted)]",
             "transition-shadow focus-visible:shadow-[var(--shadow-focus)]",
             borderClass,
           ].join(" ")}

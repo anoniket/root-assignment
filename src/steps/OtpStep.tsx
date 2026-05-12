@@ -48,7 +48,7 @@ export function OtpStep({ onContinue, onBack }: Props) {
         {/* 451px = total span of the four 70px boxes plus the three 57px gaps,
             so the resend link below can right-align to the last box. */}
         <div className="mt-[56px] xl:w-[451px]">
-          <p className="text-[12px] font-normal leading-[16px] text-[#8292a1] opacity-80">
+          <p className="text-[12px] font-normal leading-[16px] text-[var(--color-ink-muted)] opacity-80">
             An OTP has been sent to your mobile number
           </p>
 

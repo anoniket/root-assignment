@@ -87,7 +87,7 @@ export function OtpInput({
 
   const borderClass = error
     ? "border-[var(--color-danger-500)]"
-    : "border-[#729cf0]";
+    : "border-[var(--color-input-border)]";
 
   return (
     <div>

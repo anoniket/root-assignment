@@ -28,6 +28,11 @@
   /* Lines */
   --color-line: #d9e0e6;
   --color-line-strong: #bccbdb;
+  /* Blue-tint border used by every text/phone/OTP input (Figma "Input Field - Filled"). */
+  --color-input-border: #729cf0;
+
+  /* Muted ink — labels, placeholders, helper / hint text (Figma #8292a1). */
+  --color-ink-muted: #8292a1;
 
   /* Status */
   --color-danger-500: #e02b3c;

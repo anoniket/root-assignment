@@ -43,7 +43,7 @@ export function MobileStep({
         <div className="mt-[58px]">
           <label
             htmlFor="mobile"
-            className="block text-[14px] font-normal leading-[16px] text-[#8292a1] opacity-80"
+            className="block text-[14px] font-normal leading-[16px] text-[var(--color-ink-muted)] opacity-80"
           >
             Mobile Number
             <span className="ml-[2px] text-[#ff7c52]">*</span>

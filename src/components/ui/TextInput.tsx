@@ -20,9 +20,9 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
 
 /**
  * Generic labeled text input matching Figma's "Input Field - Filled" component:
- *  - 76px tall, 12px radius, blue-tint border (#729cf0)
+ *  - 76px tall, 12px radius, blue-tint border (var(--color-input-border))
  *  - 18px label in muted gray, sitting 12px above the input
- *  - light placeholder (#d9e0e6) so empty state reads as a hint, not real text
+ *  - light placeholder (var(--color-line)) so empty state reads as a hint, not real text
  *
  * Width is controlled by the parent (default `w-full`); set
  * `className="xl:w-[516px]"` to lock to the desktop figma width.
@@ -52,7 +52,7 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
     <div className={className || "w-full"}>
       <label
         htmlFor={inputId}
-        className="block text-[18px] font-normal leading-[16px] text-[#8292a1] opacity-80"
+        className="block text-[18px] font-normal leading-[16px] text-[var(--color-ink-muted)] opacity-80"
       >
         {label}
       </label>
@@ -66,11 +66,13 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
           className={[
             "h-[76px] w-full rounded-[12px] border border-solid bg-white",
             "px-6 text-[16px] leading-[24px] text-[var(--color-ink-700)] outline-none",
-            "placeholder:text-[#d9e0e6]",
+            "placeholder:text-[var(--color-line)]",
             "transition-shadow focus-visible:shadow-[var(--shadow-focus)]",
             // Reserve room for the trailing icon so text never overlaps it.
             trailing ? "pr-[56px]" : "",
-            hasError ? "border-[var(--color-danger-500)]" : "border-[#729cf0]",
+            hasError
+              ? "border-[var(--color-danger-500)]"
+              : "border-[var(--color-input-border)]",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -90,7 +92,7 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
           {visibleError}
         </p>
       ) : hint ? (
-        <p className="mt-2 text-[14px] leading-[16px] text-[#8292a1] opacity-80">
+        <p className="mt-2 text-[14px] leading-[16px] text-[var(--color-ink-muted)] opacity-80">
           {hint}
         </p>
       ) : null}
