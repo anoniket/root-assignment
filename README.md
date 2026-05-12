@@ -6,7 +6,7 @@ A six-step account-creation flow rebuilt from a Figma design as a production-gra
 
 ## Live demo
 
-_Deployed link will be added after the production build is hosted._
+**[root-assignment-gold.vercel.app](https://root-assignment-gold.vercel.app/)** — deployed on Vercel.
 
 ## Tech stack
 
