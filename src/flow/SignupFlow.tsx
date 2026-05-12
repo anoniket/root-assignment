@@ -2,7 +2,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Layout } from "../components/Layout";
 import { AccountTypeStep } from "../steps/AccountTypeStep";
 import { MobileStep } from "../steps/MobileStep";
+import { OtpStep } from "../steps/OtpStep";
 import { useSignupState } from "./useSignupState";
+
+// Figma 1:556 / 1:894: the slider is 554px wide and gains 80px per step taken.
+const SLIDER_WIDTH = 554;
+const STEP_PROGRESS_PX = 80;
 
 const stepTransition = {
   initial: { opacity: 0, x: 24 },
@@ -12,13 +17,14 @@ const stepTransition = {
 };
 
 export function SignupFlow() {
-  const { step, data, stepIndex, totalSteps, goNext, goBack } =
-    useSignupState();
+  const { step, data, stepIndex, goNext, goBack } = useSignupState();
 
   // Screen 1 (account-type) has NO progress bar — Figma shows it from screen 2 onward.
-  // For steps 2..6 (mobile..success) progress is stepIndex / (totalSteps - 1).
+  // Each completed step adds an 80px segment to the 554px-wide slider per Figma.
   const isFirstStep = step === "account-type";
-  const progress = isFirstStep ? 0 : stepIndex / (totalSteps - 1);
+  const progress = isFirstStep
+    ? 0
+    : Math.min(1, (stepIndex * STEP_PROGRESS_PX) / SLIDER_WIDTH);
   const canGoBack = stepIndex > 0;
 
   return (
@@ -46,9 +52,15 @@ export function SignupFlow() {
             />
           )}
 
-          {step !== "account-type" && step !== "mobile" && (
-            <ComingSoon stepName={step} onBack={goBack} />
+          {step === "otp" && (
+            <OtpStep onContinue={goNext} onBack={goBack} />
           )}
+
+          {step !== "account-type" &&
+            step !== "mobile" &&
+            step !== "otp" && (
+              <ComingSoon stepName={step} onBack={goBack} />
+            )}
         </motion.div>
       </AnimatePresence>
     </Layout>
