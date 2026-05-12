@@ -4,6 +4,7 @@ import { AccountTypeStep } from "../steps/AccountTypeStep";
 import { MobileStep } from "../steps/MobileStep";
 import { NameStep } from "../steps/NameStep";
 import { OtpStep } from "../steps/OtpStep";
+import { PasswordStep } from "../steps/PasswordStep";
 import type { Step } from "./types";
 import { useSignupState } from "./useSignupState";
 
@@ -71,7 +72,11 @@ export function SignupFlow() {
             />
           )}
 
-          {(step === "password" || step === "success") && (
+          {step === "password" && (
+            <PasswordStep onContinue={goNext} onBack={goBack} />
+          )}
+
+          {step === "success" && (
             <ComingSoon stepName={step} onBack={goBack} />
           )}
         </motion.div>

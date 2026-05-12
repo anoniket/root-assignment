@@ -49,19 +49,18 @@ export const nameSchema = z.object({
 
 export type NameInput = z.infer<typeof nameSchema>;
 
+// Figma helper text says "Must be atleast 6 characters" — min length matches.
 export const passwordSchema = z
   .object({
     password: z
       .string()
-      .min(8, "At least 8 characters")
-      .regex(/[A-Z]/, "Must include an uppercase letter")
-      .regex(/[a-z]/, "Must include a lowercase letter")
-      .regex(/\d/, "Must include a number"),
-    confirm: z.string(),
+      .min(6, "Must be at least 6 characters")
+      .max(100, "Password is too long"),
+    confirm: z.string().min(1, "Please confirm your password"),
   })
   .refine((v) => v.password === v.confirm, {
     path: ["confirm"],
-    message: "Passwords do not match",
+    message: "Both passwords must match",
   });
 
 export type PasswordInput = z.infer<typeof passwordSchema>;
