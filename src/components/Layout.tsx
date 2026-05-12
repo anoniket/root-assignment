@@ -72,13 +72,13 @@ export function Layout({ children, progress }: Props) {
           </section>
         </div>
 
-        {/* === Tablet / mobile layout (<1100px) — stacked, centered === */}
-        <div className="flex min-h-screen flex-col gap-8 px-5 py-8 sm:px-8 sm:py-10 xl:hidden">
-          <header className="space-y-3">
+        {/* === Tablet / mobile layout (<1280px) — stacked, centered, max-w-[640px] === */}
+        <div className="flex min-h-screen flex-col items-center gap-8 px-5 py-8 sm:px-8 sm:py-10 xl:hidden">
+          <header className="w-full max-w-[640px] space-y-3">
             <p className="text-[18px] font-light leading-[24px] text-[var(--color-ink-700)] sm:text-[22px]">
               Let&rsquo;s get started
             </p>
-            <h1 className="text-[34px] font-bold leading-[1.05] tracking-[-0.5px] text-[var(--color-ink-700)] sm:text-[42px]">
+            <h1 className="text-[34px] font-bold leading-[1.05] text-[var(--color-ink-700)] sm:text-[42px]">
               Create your account
             </h1>
             <p className="text-[14px] text-[var(--color-ink-700)] sm:text-[16px]">
@@ -86,7 +86,7 @@ export function Layout({ children, progress }: Props) {
             </p>
           </header>
 
-          <section className="relative flex flex-1 flex-col rounded-[var(--radius-card)] bg-[var(--color-surface)] px-5 py-6 shadow-[var(--shadow-card)] sm:px-8 sm:py-8">
+          <section className="relative flex w-full max-w-[640px] flex-1 flex-col rounded-[var(--radius-card)] bg-[var(--color-surface)] px-5 py-6 shadow-[var(--shadow-card)] sm:px-8 sm:py-8">
             {showProgress && (
               <div className="mb-6 w-full">
                 <ProgressBar value={progress} />
@@ -95,7 +95,7 @@ export function Layout({ children, progress }: Props) {
             <div className="flex h-full min-h-[460px] flex-col">{children}</div>
           </section>
 
-          <div className="hidden justify-center sm:flex">
+          <div className="hidden w-full max-w-[640px] justify-center sm:flex">
             <Illustration className="block h-auto w-full max-w-[420px]" />
           </div>
         </div>

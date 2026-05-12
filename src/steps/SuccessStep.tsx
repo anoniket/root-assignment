@@ -50,7 +50,7 @@ export function SuccessStep({ data, onDashboard, open = true }: Props) {
         <div className="flex w-full max-w-[431px] flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-2 text-center">
             <CircleCheck className="h-[46px] w-[46px] text-[#4b59d5]" />
-            <div className="flex w-[309px] flex-col items-center gap-2">
+            <div className="flex w-full max-w-[309px] flex-col items-center gap-2">
               <h2
                 className="font-display text-[24px] font-semibold text-[#3f3e3f]"
                 style={openSansAxis}

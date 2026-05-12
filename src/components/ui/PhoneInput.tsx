@@ -77,7 +77,7 @@ export function PhoneInput({
 
   return (
     <div>
-      <div className="flex items-stretch gap-[26px]">
+      <div className="flex items-stretch gap-3 sm:gap-[26px]">
         <CountrySelect
           selectedIso={country.iso2}
           onSelect={(iso) => setCountry(iso)}
@@ -93,10 +93,12 @@ export function PhoneInput({
           aria-invalid={!!visibleError}
           aria-label="Mobile number"
           className={[
-            "h-[76px] w-[384px] rounded-[12px] border border-solid bg-white",
+            "h-[76px] flex-1 rounded-[12px] border border-solid bg-white",
             "px-[24px] text-[16px] leading-[24px] text-[var(--color-ink-700)] outline-none",
             "placeholder:text-[var(--color-ink-muted)]",
             "transition-shadow focus-visible:shadow-[var(--shadow-focus)]",
+            // At desktop, lock back to the Figma 384px so the form matches the spec.
+            "xl:w-[384px] xl:flex-initial",
             borderClass,
           ].join(" ")}
         />
@@ -194,7 +196,7 @@ function CountrySelect({
       {open && (
         <div
           role="listbox"
-          className="absolute left-0 top-[calc(100%+6px)] z-20 flex w-[320px] flex-col overflow-hidden rounded-[12px] border border-[var(--color-line)] bg-white shadow-[var(--shadow-card)]"
+          className="absolute left-0 top-[calc(100%+6px)] z-20 flex w-[320px] max-w-[calc(100vw-40px)] flex-col overflow-hidden rounded-[12px] border border-[var(--color-line)] bg-white shadow-[var(--shadow-card)]"
         >
           <div className="border-b border-[var(--color-line)] p-2">
             <div className="flex items-center gap-2 rounded-md bg-[var(--color-page)] px-3 py-2">

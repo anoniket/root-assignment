@@ -92,7 +92,9 @@ export function OtpInput({
   return (
     <div>
       <div
-        className="flex items-center gap-[57px]"
+        // Mobile: 48px boxes / 8px gap to fit ~280px viewport content area.
+        // sm+: spec values (70 / 57).
+        className="flex items-center gap-2 sm:gap-[57px]"
         role="group"
         aria-label={`Enter ${length}-digit code`}
       >
@@ -113,7 +115,7 @@ export function OtpInput({
             aria-label={`Digit ${idx + 1}`}
             aria-invalid={!!error}
             className={[
-              "h-[70px] w-[70px] rounded-[12px] border border-solid bg-white",
+              "h-12 w-12 rounded-[12px] border border-solid bg-white sm:h-[70px] sm:w-[70px]",
               "text-center text-[16px] leading-[24px] text-[var(--color-ink-700)]",
               "outline-none transition-shadow",
               "focus-visible:shadow-[var(--shadow-focus)]",

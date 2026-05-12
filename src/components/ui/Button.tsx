@@ -57,8 +57,10 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       className={[
         base,
         variants[variant],
-        // Figma fixes the button at 250px wide; fullWidth overrides for narrow containers.
-        fullWidth ? "w-full" : "w-[250px]",
+        // Figma fixes the button at 250px on desktop. On mobile (<640px) fall
+        // back to full width so stacked buttons fill the column. fullWidth
+        // forces full at every breakpoint.
+        fullWidth ? "w-full" : "w-full sm:w-[250px]",
         className,
       ]
         .filter(Boolean)
