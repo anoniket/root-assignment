@@ -1,8 +1,28 @@
-import { CheckCircle, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { Modal } from "../components/ui/Modal";
 import { formatPhone, titleCase } from "../lib/format";
 import type { FormData } from "../flow/types";
+
+/** Inline circle-check matching Figma's Font Awesome Light glyph (no extra deps). */
+function CircleCheck({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 46 46"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <circle cx="23" cy="23" r="21.4" />
+      <path d="M14.5 23.7l6.4 6.4L32 17.6" />
+    </svg>
+  );
+}
 
 type Props = {
   data: FormData;
@@ -29,10 +49,7 @@ export function SuccessStep({ data, onDashboard, open = true }: Props) {
       <div className="flex w-[479px] max-w-[calc(100vw-32px)] flex-col items-center gap-8 rounded-[16px] bg-white px-6 py-[35px]">
         <div className="flex w-full max-w-[431px] flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-2 text-center">
-            <CheckCircle
-              className="h-[46px] w-[46px] text-[#4b59d5]"
-              strokeWidth={1.25}
-            />
+            <CircleCheck className="h-[46px] w-[46px] text-[#4b59d5]" />
             <div className="flex w-[309px] flex-col items-center gap-2">
               <h2
                 className="font-display text-[24px] font-semibold text-[#3f3e3f]"

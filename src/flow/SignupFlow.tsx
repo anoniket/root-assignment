@@ -39,7 +39,9 @@ export function SignupFlow() {
     <Layout progress={progress}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={step}
+          // Use the same key for password + success so opening the success modal
+          // doesn't re-animate the password screen underneath.
+          key={step === "success" ? "password" : step}
           {...stepTransition}
           className="flex h-full flex-col"
         >
@@ -73,16 +75,11 @@ export function SignupFlow() {
             />
           )}
 
-          {step === "password" && (
-            <PasswordStep onContinue={goNext} onBack={goBack} />
-          )}
-
-          {/* Frozen view of the password step sits behind the success modal */}
-          {step === "success" && (
+          {(step === "password" || step === "success") && (
             <PasswordStep
               defaultPassword={data.password}
-              onContinue={() => {}}
-              onBack={() => {}}
+              onContinue={goNext}
+              onBack={goBack}
             />
           )}
         </motion.div>
