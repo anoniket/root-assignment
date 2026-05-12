@@ -77,7 +77,7 @@ export function PhoneInput({
 
   return (
     <div>
-      <div className="flex items-stretch gap-3 sm:gap-[26px]">
+      <div className="flex w-full min-w-0 items-stretch gap-3 sm:gap-[26px]">
         <CountrySelect
           selectedIso={country.iso2}
           onSelect={(iso) => setCountry(iso)}
@@ -92,9 +92,12 @@ export function PhoneInput({
           inputMode="tel"
           aria-invalid={!!visibleError}
           aria-label="Mobile number"
+          // min-w-0 is required: flex items default to min-width:auto which
+          // refuses to shrink below the input's intrinsic width and pushes the
+          // row past its container on narrow viewports.
           className={[
-            "h-[76px] flex-1 rounded-[12px] border border-solid bg-white",
-            "px-[24px] text-[16px] leading-[24px] text-[var(--color-ink-700)] outline-none",
+            "h-[76px] min-w-0 flex-1 rounded-[12px] border border-solid bg-white",
+            "px-4 text-[16px] leading-[24px] text-[var(--color-ink-700)] outline-none sm:px-[24px]",
             "placeholder:text-[var(--color-ink-muted)]",
             "transition-shadow focus-visible:shadow-[var(--shadow-focus)]",
             // At desktop, lock back to the Figma 384px so the form matches the spec.
