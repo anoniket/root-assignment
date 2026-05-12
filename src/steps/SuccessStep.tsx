@@ -66,23 +66,25 @@ export function SuccessStep({ data, onDashboard, open = true }: Props) {
             </div>
           </div>
 
-          <dl className="flex w-full flex-col items-start gap-4 whitespace-nowrap rounded-[24px] bg-[#f5f5f5] p-6 text-[14px]">
+          <dl className="flex w-full flex-col items-start gap-4 rounded-[24px] bg-[#f5f5f5] p-6 text-[14px] sm:whitespace-nowrap">
             {rows.map((r) => (
               <div
                 key={r.label}
-                className="flex w-full items-center justify-between"
+                // Stack label / value on mobile so long values (formatted phone
+                // numbers, long names) don't crash into the label.
+                className="flex w-full flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
               >
                 <dt className="font-normal text-[#717680]">{r.label}</dt>
-                <dd className="text-right font-medium text-[#181d27]">
+                <dd className="break-words font-medium text-[#181d27] sm:text-right">
                   {r.value}
                 </dd>
               </div>
             ))}
           </dl>
 
-          <div className="flex items-center justify-center gap-1 whitespace-nowrap text-center">
+          <div className="flex items-start justify-center gap-1 text-center sm:items-center sm:whitespace-nowrap">
             <ShieldCheck
-              className="h-[14px] w-[14px] text-[#047647]"
+              className="mt-[2px] h-[14px] w-[14px] shrink-0 text-[#047647] sm:mt-0"
               strokeWidth={2}
             />
             <p
