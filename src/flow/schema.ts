@@ -30,17 +30,21 @@ export const otpSchema = z.object({
 
 export type OtpInput = z.infer<typeof otpSchema>;
 
+// Allow any-language letters plus common name punctuation (e.g. José, O'Hara).
+const namePart = (label: string) =>
+  z
+    .string()
+    .trim()
+    .min(1, `${label} is required`)
+    .max(40, `${label} is too long`)
+    .regex(
+      /^\p{L}[\p{L}\s'-]*$/u,
+      `${label} can only contain letters, spaces, hyphens, and apostrophes`
+    );
+
 export const nameSchema = z.object({
-  firstName: z
-    .string()
-    .min(1, "First name is required")
-    .max(40, "Too long")
-    .regex(/^[A-Za-z][A-Za-z\s'-]*$/, "Only letters, spaces, ' and -"),
-  lastName: z
-    .string()
-    .min(1, "Last name is required")
-    .max(40, "Too long")
-    .regex(/^[A-Za-z][A-Za-z\s'-]*$/, "Only letters, spaces, ' and -"),
+  firstName: namePart("First name"),
+  lastName: namePart("Last name"),
 });
 
 export type NameInput = z.infer<typeof nameSchema>;

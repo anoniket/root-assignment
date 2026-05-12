@@ -2,12 +2,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Layout } from "../components/Layout";
 import { AccountTypeStep } from "../steps/AccountTypeStep";
 import { MobileStep } from "../steps/MobileStep";
+import { NameStep } from "../steps/NameStep";
 import { OtpStep } from "../steps/OtpStep";
+import type { Step } from "./types";
 import { useSignupState } from "./useSignupState";
 
-// Figma 1:556 / 1:894: the slider is 554px wide and gains 80px per step taken.
+// Figma slider widths per step (1:556, 1:894, 1:1242, ...). Per-step values
+// rather than a formula because the design isn't strictly linear (264 ≠ 240).
 const SLIDER_WIDTH = 554;
-const STEP_PROGRESS_PX = 80;
+const PROGRESS_PX: Record<Step, number> = {
+  "account-type": 0,
+  mobile: 80,
+  otp: 160,
+  name: 264,
+  password: 384,
+  success: 554,
+};
 
 const stepTransition = {
   initial: { opacity: 0, x: 24 },
@@ -20,11 +30,7 @@ export function SignupFlow() {
   const { step, data, stepIndex, goNext, goBack } = useSignupState();
 
   // Screen 1 (account-type) has NO progress bar — Figma shows it from screen 2 onward.
-  // Each completed step adds an 80px segment to the 554px-wide slider per Figma.
-  const isFirstStep = step === "account-type";
-  const progress = isFirstStep
-    ? 0
-    : Math.min(1, (stepIndex * STEP_PROGRESS_PX) / SLIDER_WIDTH);
+  const progress = PROGRESS_PX[step] / SLIDER_WIDTH;
   const canGoBack = stepIndex > 0;
 
   return (
@@ -56,11 +62,18 @@ export function SignupFlow() {
             <OtpStep onContinue={goNext} onBack={goBack} />
           )}
 
-          {step !== "account-type" &&
-            step !== "mobile" &&
-            step !== "otp" && (
-              <ComingSoon stepName={step} onBack={goBack} />
-            )}
+          {step === "name" && (
+            <NameStep
+              defaultFirstName={data.firstName}
+              defaultLastName={data.lastName}
+              onContinue={goNext}
+              onBack={goBack}
+            />
+          )}
+
+          {(step === "password" || step === "success") && (
+            <ComingSoon stepName={step} onBack={goBack} />
+          )}
         </motion.div>
       </AnimatePresence>
     </Layout>
