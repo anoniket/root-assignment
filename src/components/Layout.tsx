@@ -55,7 +55,7 @@ export function Layout({ children, progress }: Props) {
               (Figma's 1024-tall frame had height 895; we pin bottom instead so the card
               fills naturally on viewports taller than 1024.) */}
           <section
-            className="absolute min-h-[895px] w-[708px] rounded-[var(--radius-card)] bg-[var(--color-surface)] px-[64px] py-[44px] shadow-[var(--shadow-card)]"
+            className="absolute w-[708px] rounded-[var(--radius-card)] bg-[var(--color-surface)] px-[64px] py-[44px] shadow-[var(--shadow-card)]"
             style={{
               left: "calc(41.67% + 84px)",
               top: "81px",
